@@ -5,6 +5,6 @@ function setup() {
 function draw() {
   background(220);
   
-  fill(0);
-  circle(mouseX,mouseY,100);
+  fill(213, 59, 197, 101);
+  circle(120,312,39);
 }
