@@ -6,5 +6,6 @@ function draw() {
   background(220);
   
   fill(0);
-  circle(mouseX,mouseY,100);
+  stroke(0, 255, 0);
+  circle(mouseX,mouseY,20);
 }
