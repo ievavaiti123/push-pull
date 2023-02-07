@@ -1,13 +1,15 @@
 let stage = false;
 let x, y;
 let pos, speed;
+let canvas2;
 
 let bckColA, bckColB, currentBckColor;
 
 function setup() {
   createCanvas(1000, 600);
 
-  osc = new p5.Oscillator('sine');
+  canvas2 = createGraphics(1000, 600);
+
   pos = createVector(width/2, height/2);
   speed = createVector(random(2), random(3,5));
 
@@ -23,12 +25,29 @@ function draw() {
   circle(pos.x, pos.y, 30);
   move();
   checkEdges();
+
+
+  textSize(20);
+  text("I've started a text poem", pos.x+30, pos.y);
+
+  image(canvas2, 0, 0);
+  if (mouseIsPressed) {
+    canvas2.fill(236, 199, 21)
+    canvas2.textSize(10);
+    canvas2.text("It's up to you where to take it next", mouseX, mouseY);
+  } else {
+    canvas2.clear()
+    canvas2.fill(236, 199, 21)
+    canvas2.textSize(20)
+    canvas2.text("click mouse to reveal secret message", mouseX, mouseY)
+  }
+  
+
+  
+  
 }
 
-function playOscillator() {
-  osc.start();
-  playing = true;
-}
+
 
 function move(){
   pos.add(speed);
