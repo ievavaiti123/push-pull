@@ -7,6 +7,9 @@ let bckColA, bckColB, currentBckColor;
 
 let mainOsc, amModOsc;
 
+let mAmp = 0.2;
+let aAmp = 0.8;
+
 function setup() {
   createCanvas(1000, 600);
 
@@ -19,18 +22,19 @@ function setup() {
   bckColA = color(255, 0, 155);
   bckColB = color(140, 20, 255);
   currentBckColor = bckColA;
+ 
 
   // sound initialisation
   amModOsc = new p5.Oscillator();
   amModOsc.freq(4);
   amModOsc.add(1);
-  amModOsc.amp(0.8);
+  amModOsc.amp(aAmp);
   amModOsc.disconnect(); // disconnect from audio output
   amModOsc.start();
 
   mainOsc = new p5.Oscillator();
   mainOsc.setType('sine');
-  mainOsc.amp(0.2);
+  mainOsc.amp(mAmp);
   mainOsc.amp(amModOsc);
   mainOsc.freq(440);
   //mainOsc.start();
@@ -48,6 +52,8 @@ function draw() {
 
   image(canvas2, 0, 0);
   if (mouseIsPressed) {
+    
+    
     canvas2.fill(236, 199, 21)
     canvas2.textSize(10);
     canvas2.text("It's up to you where to take it next", mouseX, mouseY);
@@ -56,13 +62,19 @@ function draw() {
     mainOsc.freq(freq);
     let amFreq = map(mouseX, 0, width, 2, 100);
     amModOsc.freq(amFreq);
+    mainOsc.amp(mAmp, 0.4);
+    amModOsc.amp(aAmp, 0.4);
 
 
   } else {
-    canvas2.clear()
-    canvas2.fill(236, 199, 21)
-    canvas2.textSize(20)
-    canvas2.text("click mouse to reveal secret message", mouseX, mouseY)
+   
+    canvas2.fill(236, 199, 21);
+    canvas2.clear();
+    
+    canvas2.textSize(20);
+    canvas2.text("click mouse to reveal secret message", mouseX, mouseY);
+    
+    
   }
 }
 
@@ -72,8 +84,12 @@ function mousePressed() {
 }
 
 function mouseReleased() {
+  mainOsc.amp(0, 0.5);
   mainOsc.stop();
+  
 }
+
+
 
 
 function move() {
